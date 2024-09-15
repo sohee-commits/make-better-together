@@ -116,7 +116,7 @@
 				<form
 					class="container-outlined"
 					id="form-login"
-					action="login.php"
+					action="auth.php"
 					method="post"
 				>
 					<h3>Уже с нами? Войдите в личный кабинет!</h3>
@@ -127,6 +127,7 @@
 							name="login"
 							id="login"
 							placeholder="exampleLogin"
+							required
 						/>
 					</div>
 					<div class="group">
@@ -136,6 +137,8 @@
 							name="password"
 							id="password"
 							placeholder="********"
+							autocomplete="current-password"
+							required
 						/>
 					</div>
 					<button class="button-colored" type="submit">Войти</button>
@@ -143,28 +146,73 @@
 				<!-- регистрация -->
 				<form
 					class="container-colored"
-					id="form-login"
-					action="login.php"
+					id="form-register"
+					action="auth.php"
 					method="post"
 				>
-					<h3>Уже с нами? Войдите в личный кабинет!</h3>
+					<h3>А если нет — присоединяйтесь!</h3>
 					<div class="group">
-						<label for="login">Логин</label>
+						<label for="name_full">ФИО</label>
 						<input
 							type="text"
-							name="login"
-							id="login"
-							placeholder="exampleLogin"
+							name="name_full"
+							id="name_full"
+							placeholder="Фамилия Имя Отчество"
+							required
 						/>
 					</div>
 					<div class="group">
-						<label for="password">Пароль</label>
+						<label for="login_new">Логин</label>
+						<input
+							type="text"
+							name="login_new"
+							id="login_new"
+							placeholder="Только латиница"
+							required
+						/>
+					</div>
+					<div class="group">
+						<label for="email">E-mail</label>
+						<input
+							type="text"
+							name="email"
+							id="email"
+							placeholder="example@email.ru"
+							autocomplete="email"
+							required
+						/>
+					</div>
+					<div class="group">
+						<label for="password_new">Пароль</label>
 						<input
 							type="password"
-							name="password"
-							id="password"
-							placeholder="********"
+							name="password_new"
+							id="password_new"
+							placeholder="Не менее 8 символов"
+							required
 						/>
+					</div>
+					<div class="group">
+						<label for="password_repeat">Повтор пароля</label>
+						<input
+							type="password"
+							name="password_repeat"
+							id="password_repeat"
+							placeholder="Введённое значение должно совпадать с паролем"
+							autocomplete="new-password"
+							required
+						/>
+					</div>
+					<div class="group">
+						<input
+							type="checkbox"
+							name="agreement"
+							id="agreement"
+							checked
+							disabled
+							required
+						/>
+						<label for="agreement">Я согласен на обработку данных</label>
 					</div>
 					<button class="button-inverted" type="submit">Войти</button>
 				</form>

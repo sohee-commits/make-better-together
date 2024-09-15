@@ -1,11 +1,28 @@
+@font-face {
+	font-family: 'Source Sans Pro';
+	src: url('fonts/SourceSansPro-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Source Sans Pro';
+	src: url('fonts/SourceSansPro-Bold.ttf') format('truetype');
+	font-weight: bold;
+	font-style: normal;
+}
+
 * {
 	box-sizing: border-box;
-	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-		Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	font-family: 'Source Sans Pro', system-ui, -apple-system, sans-serif;
 	color: #272727;
 	text-decoration: none;
 	margin: 0;
 	padding: 0;
+}
+
+body {
+	position: relative;
 }
 
 /* * классы */
@@ -108,12 +125,13 @@ form input {
 	padding: 0.5rem 1.25rem;
 	border-radius: 4rem;
 	background: none;
+	transition: border-color 0.3s;
 }
 
 /* форма outlined */
 
 form.container-outlined input {
-	font-size: 1em;
+	font-size: 1rem;
 	border: 1px solid rgba(39, 39, 39, 0.15);
 }
 
@@ -144,6 +162,34 @@ form.container-colored input::placeholder {
 form.container-colored input:focus-visible {
 	outline: none;
 	border-color: rgba(252, 252, 252, 0.75);
+}
+
+.group:has(input[type='checkbox']) {
+	flex-direction: row;
+	gap: 0.5rem;
+	font-size: 0.75rem;
+}
+
+input[type='checkbox'] {
+	padding: 0;
+	border: none;
+	border-radius: 0;
+	appearance: none;
+	width: 0.75rem;
+	height: 0.75rem;
+}
+
+input[type='checkbox']::before {
+	content: '✅';
+	display: block;
+	width: 100%;
+	height: 100%;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	font-size: 0.75rem;
 }
 
 /* общие */
@@ -182,6 +228,14 @@ h3 {
 }
 
 /* header */
+
+body > header {
+	position: sticky;
+	top: 0;
+	z-index: 2;
+
+	background: #fcfcfc;
+}
 
 header {
 	display: flex;
@@ -250,6 +304,7 @@ footer {
 	gap: 1rem;
 
 	background: rgba(30, 144, 255, 0.05);
+	border-radius: 2rem 2rem 0 0;
 }
 
 footer .logo img {
@@ -303,9 +358,11 @@ footer p {
 
 	/* header-mobile */
 	header#header-mobile {
-		position: relative;
-
 		padding: 1rem;
+	}
+
+	header#header-mobile nav {
+		position: relative;
 	}
 
 	header#header-mobile button#open-nav {
@@ -317,10 +374,10 @@ footer p {
 
 	header#header-mobile ul {
 		position: absolute;
-		left: 0;
+		right: 0;
 		top: 100%;
 
-		width: 100%;
+		width: 100vw;
 		padding: 1rem;
 
 		display: flex;
