@@ -3,23 +3,22 @@
 const indexLink = document.querySelectorAll(`nav a[href="index.html"]`);
 const userLink = document.querySelectorAll(`nav a[href="user.html"]`);
 
-if (window.location.href.includes(`index.html`)) {
-	// если на главной, то подсветится элемент навигации Главная страница
+// страницы только две, мб открыта index/без названия
+// поэтому идем от противоположного — user
+if (window.location.href.includes(`user.html`)) {
 	indexLink.forEach((link) => {
-		link.classList.add(`colored`);
-	});
-	// убираем класс у элемента навигации Личный кабинет
-	userLink.forEach((link) => {
 		link.classList.remove(`colored`);
 	});
+	userLink.forEach((link) => {
+		link.classList.add(`colored`);
+	});
+	// а если не user (index/без названия), то подсвечиваем главная
 } else {
-	// если ЛК, то подсветится элемент навигации Личный кабинет
 	indexLink.forEach((link) => {
-		link.classList.remove(`colored`);
-	});
-	// убираем класс у элемента навигации Главная страница
-	userLink.forEach((link) => {
 		link.classList.add(`colored`);
+	});
+	userLink.forEach((link) => {
+		link.classList.remove(`colored`);
 	});
 }
 
