@@ -1,30 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans+Semi+Condensed:ital,wght@0,1..1000;1,1..1000&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Sofia+Sans+Semi+Condensed:ital,wght@0,1..1000;1,1..1000&display=swap");
 
 @font-face {
-	font-family: 'Source Sans Pro';
-	src: url('../assets/fonts/SourceSansPro-Regular.ttf') format('truetype');
-	font-weight: normal;
-	font-style: normal;
+  font-family: "Source Sans Pro";
+  src: url("../assets/fonts/SourceSansPro-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-	font-family: 'Source Sans Pro';
-	src: url('../assets/fonts/SourceSansPro-Bold.ttf') format('truetype');
-	font-weight: bold;
-	font-style: normal;
+  font-family: "Source Sans Pro";
+  src: url("../assets/fonts/SourceSansPro-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
 }
 
 * {
-	box-sizing: border-box;
-	font-family: 'Source Sans Pro', system-ui, -apple-system, sans-serif;
-	color: #272727;
-	text-decoration: none;
-	margin: 0;
-	padding: 0;
+  box-sizing: border-box;
+  font-family: "Source Sans Pro", system-ui, -apple-system, sans-serif;
+  color: #272727;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-	position: relative;
+  position: relative;
 }
 
 /* * классы */
@@ -32,382 +32,436 @@ body {
 /* текст */
 
 *.colored {
-	color: #1e90ff;
+  color: #1e90ff;
 }
 
 *.text-faded {
-	font-size: 0.75rem;
-	font-weight: bold;
-	opacity: 0.5;
+  font-size: 0.75rem;
+  font-weight: bold;
+  opacity: 0.5;
 }
 
 /* контейнеры */
 
 *.container {
-	display: flex;
-	flex-direction: row;
-	gap: 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
 }
 
 *.container > * {
-	flex: 1 0;
-	height: fit-content;
+  flex: 1 0;
+  height: fit-content;
 }
 
 /* -colored, -outlined */
 *[class^='container-'],
 /* конкретно counter */
 #container-counter {
-	border-radius: 2rem;
-	padding: 2rem;
+  border-radius: 2rem;
+  padding: 2rem;
 
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 *.container-colored {
-	color: #fcfcfc;
-	background-color: #1e90ff;
+  color: #fcfcfc;
+  background-color: #1e90ff;
 }
 
 *.container-outlined {
-	border: 1px rgba(39, 39, 39, 0.15) inset;
+  border: 1px rgba(39, 39, 39, 0.15) inset;
+}
+
+*.caption {
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+*.caption ~ *.declined {
+  color: #b22222;
+}
+
+*.caption ~ *.solved {
+  color: #008000;
+}
+
+.status ~ button {
+  border: none;
+  font-size: 1rem;
+  color: #1e90ff;
 }
 
 /* кнопки */
 
 button {
-	cursor: pointer;
-	background: none;
-	transition: all 0.3s;
-	width: fit-content;
+  cursor: pointer;
+  background: none;
+  transition: all 0.3s;
+  width: fit-content;
 }
 
-button[class^='button-'] {
-	padding: 0.5rem 1.25rem;
-	border: 4rem;
-	border-radius: 4em;
-	font-size: 1rem;
+button[class^="button-"] {
+  padding: 0.5rem 1.25rem;
+  border: 4rem;
+  border-radius: 4em;
+  font-size: 1rem;
 }
 
 button.button-colored {
-	color: #1e90ff;
-	border: 1px solid #1e90ff;
+  color: #1e90ff;
+  border: 1px solid #1e90ff;
 }
 
 button.button-colored:hover {
-	color: #fcfcfc;
-	background: #1e90ff;
+  color: #fcfcfc;
+  background: #1e90ff;
 }
 
 button.button-inverted {
-	color: #fcfcfc;
-	border: 1px solid #fcfcfc;
+  color: #fcfcfc;
+  border: 1px solid #fcfcfc;
 }
 
 button.button-inverted:hover {
-	color: #1e90ff;
-	background: #fcfcfc;
+  color: #1e90ff;
+  background: #fcfcfc;
 }
 
 button.button-outlined {
-	border: 1px solid rgba(39, 39, 39, 0.15);
+  border: 1px solid rgba(39, 39, 39, 0.15);
+}
+
+button.button-outlined:hover {
+  background: rgba(39, 39, 39, 0.05);
 }
 
 /* формы*/
 
 form .group {
-	display: flex;
-	flex-direction: column;
-	gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-form input {
-	padding: 0.5rem 1.25rem;
-	border-radius: 4rem;
-	background: none;
-	transition: border-color 0.3s;
+form input,
+form textarea,
+form select {
+  padding: 0.5rem 1.25rem;
+
+  background: none;
+  transition: border-color 0.3s;
+}
+
+form input,
+form select {
+  border-radius: 4rem;
+}
+
+form textarea {
+  border-radius: 1rem;
 }
 
 /* форма outlined */
 
-form.container-outlined input {
-	font-size: 1rem;
-	border: 1px solid rgba(39, 39, 39, 0.15);
+form.container-outlined input,
+form.container-outlined textarea,
+form.container-outlined select {
+  font-size: 1rem;
+  border: 1px solid rgba(39, 39, 39, 0.15);
 }
 
-form.container-outlined input::placeholder {
-	color: rgba(39, 39, 39, 0.5);
+/* у select нет placeholder */
+form.container-outlined input::placeholder,
+form.container-outlined textarea::placeholder {
+  color: rgba(39, 39, 39, 0.5);
 }
 
-form.container-outlined input:focus-visible {
-	outline: none;
-	border: 1px solid #1e90ff;
+form.container-outlined textarea:focus-visible,
+form.container-outlined input:focus-visible,
+form.container-outlined select:focus-visible {
+  outline: none;
+  border: 1px solid #1e90ff;
 }
 
 /* форма colored */
 
 form.container-colored * {
-	color: #fcfcfc;
+  color: #fcfcfc;
 }
 
-form.container-colored input {
-	font-size: 1em;
-	border: 1px solid rgba(252, 252, 252, 0.3);
+form.container-colored select {
+  background: #1e90ff;
 }
 
-form.container-colored input::placeholder {
-	color: rgba(252, 252, 252, 0.75);
+form.container-colored input,
+form.container-colored textarea,
+form.container-colored select {
+  font-size: 1em;
+  border: 1px solid rgba(252, 252, 252, 0.3);
 }
 
-form.container-colored input:focus-visible {
-	outline: none;
-	border-color: rgba(252, 252, 252, 0.75);
+form.container-colored input::placeholder,
+form.container-colored textarea::placeholder {
+  color: rgba(252, 252, 252, 0.75);
 }
 
-.group:has(input[type='checkbox']) {
-	flex-direction: row;
-	gap: 0.5rem;
-	font-size: 0.75rem;
+form.container-colored input:focus-visible,
+form.container-colored textarea:focus-visible,
+form.container-colored select:focus-visible {
+  outline: none;
+  border-color: rgba(252, 252, 252, 0.75);
 }
 
-input[type='checkbox'] {
-	padding: 0;
-	border: none;
-	border-radius: 0;
-	appearance: none;
-	width: 0.75rem;
-	height: 0.75rem;
+.group:has(input[type="checkbox"]) {
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 0.5rem;
+  font-size: 0.75rem;
 }
 
-input[type='checkbox']::before {
-	content: '✅';
-	display: block;
-	width: 100%;
-	height: 100%;
+input[type="checkbox"] {
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  appearance: none;
+  width: 0.75rem;
+  height: 0.75rem;
+}
 
-	display: flex;
-	align-items: center;
-	justify-content: center;
+input[type="checkbox"]::before {
+  content: "✅";
+  display: block;
+  width: 100%;
+  height: 100%;
 
-	font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 0.75rem;
+}
+
+textarea {
+  height: 4rem;
 }
 
 /* общие */
 
 *.hidden {
-	display: none !important;
+  display: none !important;
 }
 
 /* логотип */
 
 .logo {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .logo img {
-	object-fit: contain;
+  object-fit: contain;
 }
 
 .logo a {
-	font-weight: bold;
-	font-family: 'Sofia Sans Semi Condensed', system-ui, -apple-system, sans-serif;
+  font-weight: bold;
+  font-family: "Sofia Sans Semi Condensed", system-ui, -apple-system, sans-serif;
 }
 
 /* заголовки */
 
 h1 {
-	font-size: 1rem;
+  font-size: 1rem;
 }
 
 h2 {
-	font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
 h3 {
-	font-size: 1.25rem;
+  font-size: 1.25rem;
 }
 
 /* header */
 
 body > header {
-	position: sticky;
-	top: 0;
-	z-index: 2;
+  position: sticky;
+  top: 0;
+  z-index: 2;
 
-	background: #fcfcfc;
+  background: #fcfcfc;
 }
 
 header {
-	display: flex;
-	justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 header .logo img {
-	width: 1.5rem;
-	height: 1.5rem;
-	object-fit: contain;
+  width: 1.5rem;
+  height: 1.5rem;
+  object-fit: contain;
 }
 
 header .logo a {
-	font-size: 1.25rem;
+  font-size: 1.25rem;
 }
 
 header ul {
-	list-style-type: none;
+  list-style-type: none;
 }
 
 /* главная */
 
 main {
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 /* карточки */
 
 article#container-counter p:first-of-type {
-	font-size: 8rem;
+  font-size: 8rem;
 }
 
 article#container-counter p:last-of-type {
-	font-size: 1.25rem;
+  font-size: 1.25rem;
 }
 
-article .group {
-	display: flex;
-	justify-content: space-between;
+.group {
+  display: flex;
+  justify-content: space-between;
 }
 
-article .group .category {
-	font-size: 0.75rem;
+.group .category {
+  font-size: 0.75rem;
 }
 
 article img {
-	width: 100%;
-	height: 8rem;
-	object-fit: cover;
+  width: 100%;
+  height: 8rem;
+  object-fit: cover;
 
-	border-radius: 1rem;
+  border-radius: 1rem;
 }
 
-article [class^='content'] .text-faded {
-	text-align: center;
+article [class^="content"] .text-faded {
+  text-align: center;
 }
 
 /* подвал */
 
 footer {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 
-	text-align: center;
-	background: rgba(30, 144, 255, 0.05);
-	border-radius: 2rem 2rem 0 0;
+  text-align: center;
+  background: rgba(30, 144, 255, 0.05);
+  border-radius: 2rem 2rem 0 0;
 }
 
 footer .logo img {
-	width: 1.188rem;
-	height: 1.188rem;
-	object-fit: contain;
+  width: 1.188rem;
+  height: 1.188rem;
+  object-fit: contain;
 }
 
 footer .logo a {
-	font-size: 1rem;
+  font-size: 1rem;
 }
 
 footer p {
-	font-size: 0.75rem;
+  font-size: 0.75rem;
 }
 
 /* адаптивность */
 
 @media (min-width: 1200px) {
-	/* скрываем шапку для смартфонов когда ширина экрана больше 1200 */
-	header#header-mobile {
-		display: none;
-	}
+  /* скрываем шапку для смартфонов когда ширина экрана больше 1200 */
+  header#header-mobile {
+    display: none;
+  }
 
-	/* header-desktop */
-	header#header-desktop {
-		padding: 1rem 8rem;
-	}
+  /* header-desktop */
+  header#header-desktop {
+    padding: 1rem 8rem;
+  }
 
-	header#header-desktop ul {
-		display: flex;
-		gap: 4rem;
-	}
+  header#header-desktop ul {
+    display: flex;
+    gap: 4rem;
+  }
 
-	/* main */
-	main {
-		padding: 1rem 8rem;
-	}
+  /* main */
+  main {
+    padding: 1rem 8rem;
+  }
 
-	/* подвал */
-	footer {
-		padding: 1rem 8rem;
-	}
+  /* подвал */
+  footer {
+    padding: 1rem 8rem;
+  }
 }
 
 @media (max-width: 1200px) {
-	/* скрываем шапку для пк когда ширина экрана меньше 1200 */
-	header#header-desktop {
-		display: none;
-	}
+  /* скрываем шапку для пк когда ширина экрана меньше 1200 */
+  header#header-desktop {
+    display: none;
+  }
 
-	/* header-mobile */
-	header#header-mobile {
-		padding: 1rem;
-	}
+  /* header-mobile */
+  header#header-mobile {
+    padding: 1rem;
+  }
 
-	header#header-mobile nav {
-		position: relative;
-	}
+  header#header-mobile nav {
+    position: relative;
+  }
 
-	header#header-mobile button#open-nav {
-		padding: 0;
-		border: none;
-		background: none;
-		font-size: 1rem;
-	}
+  header#header-mobile button#open-nav {
+    padding: 0;
+    border: none;
+    background: none;
+    font-size: 1rem;
+  }
 
-	header#header-mobile ul {
-		position: absolute;
-		right: 0;
-		top: 100%;
+  header#header-mobile ul {
+    position: absolute;
+    right: 0;
+    top: 100%;
 
-		width: 100vw;
-		padding: 1rem;
+    width: 100vw;
+    padding: 1rem;
 
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 
-		background: #fcfcfc;
-		border-bottom: 1px rgba(39, 39, 39, 0.15) inset;
-	}
+    background: #fcfcfc;
+    border-bottom: 1px rgba(39, 39, 39, 0.15) inset;
+  }
 
-	header#header-mobile ul * {
-		text-align: center;
-	}
+  header#header-mobile ul * {
+    text-align: center;
+  }
 
-	/* главная секция */
-	main {
-		padding: 1rem;
-	}
+  /* главная секция */
+  main {
+    padding: 1rem;
+  }
 
-	/* контейнеры */
-	*.container {
-		flex-direction: column;
-	}
+  /* контейнеры */
+  *.container {
+    flex-direction: column;
+  }
 
-	/* подвал */
-	footer {
-		padding: 1rem;
-	}
+  /* подвал */
+  footer {
+    padding: 1rem;
+  }
 }
