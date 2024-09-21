@@ -68,7 +68,7 @@ body {
 
 *.container-colored {
 	color: #fcfcfc;
-	background-color: #1e90ff;
+	background: #1e90ff;
 }
 
 *.container-outlined {
@@ -319,6 +319,8 @@ main {
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
+
+	background: #fcfcfc;
 }
 
 /* карточки */
