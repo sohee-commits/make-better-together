@@ -7,6 +7,11 @@ article#container-counter * {
 	font-weight: bold;
 }
 
+#counter-solved {
+	display: inline-block;
+	transition: transform 0.3s ease;
+}
+
 article .content {
 	position: relative;
 }

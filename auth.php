@@ -25,11 +25,22 @@ if (isset($_POST['button-login'])) {
       header('Location: user.php');
       exit();
     } else {
-      echo '<script>alert("Неверный пароль");</script>';
+      echo '
+      <script>
+        if (confirm("Неверный пароль")) {
+            window.location.href = "index.php";
+        }
+      </script>';
       exit();
     }
   } else {
-    echo '<script>alert("Пользователь не найден");</script>';
+    echo '
+      <script>
+        if (confirm("Пользователь не найден")) {
+            window.location.href = "index.php";
+        }
+      </script>';
+    header('Location: index.php');
     exit();
   }
 }

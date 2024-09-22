@@ -35,7 +35,7 @@ require_once 'config.php';
           <header>
             <h3>{$application['title']}</h3>
           </header>
-          <img src="{$application['path']}" />
+          <img src="assets/applications/{$application['path']}" />
           <hr />
           <form 
             action="application-manage.php" 
@@ -84,17 +84,28 @@ require_once 'config.php';
     $stmt->execute();
     $result = $stmt->get_result();
 
-    while ($application = $result->fetch_assoc()) {
-      if ($application['status'] != 'Ожидает') {
-        $date = date('d.m.Y', strtotime($application['date']));
-        $statusClass =
-          $application['status'] === 'Отклонена'
-          ? 'declined'
-          : ($application['status'] === 'Решена'
-            ? 'solved'
-            : '');
+    if ($result->num_rows === 0) {
+      echo <<<HTML
+      <p 
+        id="filler" 
+        style="height: 20vh; 
+        font-size: 1.15rem; 
+        font-weight: 500;">
+          Нет решённых заявок 🤔
+      </p>
+      HTML;
+    } else {
+      while ($application = $result->fetch_assoc()) {
+        if ($application['status'] != 'Ожидает') {
+          $date = date('d.m.Y', strtotime($application['date']));
+          $statusClass =
+            $application['status'] === 'Отклонена'
+            ? 'declined'
+            : ($application['status'] === 'Решена'
+              ? 'solved'
+              : '');
 
-        echo <<<HTML
+          echo <<<HTML
         <section class="container-outlined application">
           <div class="group">
             <p class="date text-faded">{$date}</p>
@@ -110,6 +121,7 @@ require_once 'config.php';
           </div>
         </section>
         HTML;
+        }
       }
     }
     ?>
@@ -139,9 +151,19 @@ require_once 'config.php';
     $stmt = $conn->prepare("SELECT * FROM categories");
     $stmt->execute();
     $result = $stmt->get_result();
-
-    while ($category = $result->fetch_assoc()) {
+    if ($result->num_rows === 0) {
       echo <<<HTML
+      <p 
+        id="filler" 
+        style="height: 20vh; 
+        font-size: 1.15rem; 
+        font-weight: 500;">
+          Нет категорий! 😱
+      </p>
+      HTML;
+    } else {
+      while ($category = $result->fetch_assoc()) {
+        echo <<<HTML
       <form 
         action="categories-manage.php" 
         method="post" 
@@ -154,6 +176,7 @@ require_once 'config.php';
         </button>
       </form>
       HTML;
+      }
     }
     ?>
   </section>
