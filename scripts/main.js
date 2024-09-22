@@ -74,8 +74,12 @@ const checkLoginForm = (login, password, submit) => {
 
 	// логин только латиница
 	login.addEventListener(`input`, function () {
-		this.value = this.value.replace(/[^A-Za-z]/g, ``);
-		login.placeholder = `Попробуйте сменить раскладку`;
+		if (/[^A-Za-z]/.test(this.value)) {
+			login.placeholder = `Попробуйте сменить раскладку`;
+			this.value = this.value.replace(/[^A-Za-z]/g, ``);
+		} else {
+			login.placeholder = `exampleLogin`;
+		}
 	});
 
 	// пароль не меньше 8 символов
@@ -101,8 +105,12 @@ const checkRegisterForm = (
 
 	// логин только латиница
 	login.addEventListener(`input`, function () {
-		this.value = this.value.replace(/[^A-Za-z]/g, ``);
-		login.placeholder = `Попробуйте сменить раскладку`;
+		if (/[^A-Za-z]/.test(this.value)) {
+			login.placeholder = `Попробуйте сменить раскладку`;
+			this.value = this.value.replace(/[^A-Za-z]/g, ``);
+		} else {
+			login.placeholder = `Только латиница`;
+		}
 	});
 
 	// пароль не меньше 8 символов
@@ -134,6 +142,7 @@ const checkRegisterForm = (
 
 	// проверка фио (главное не пустое)
 	name.addEventListener(`input`, function () {
+		this.value = this.value.replace(/[^А-Яа-яЁё\s]/g, ``);
 		if (this.value === ``) {
 			submit.disabled = true;
 		} else {

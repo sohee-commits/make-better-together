@@ -136,6 +136,7 @@ require_once 'config.php';
                 id="name"
                 placeholder="Фамилия Имя Отчество"
                 autocomplete="name"
+                pattern="[А-Яа-яЁё\s]+"
                 required />
             </div>
             <div class="group">
