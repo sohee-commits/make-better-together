@@ -116,6 +116,14 @@ button.button-colored {
 	border: 1px solid #1e90ff;
 }
 
+button.button-colored:disabled,
+button.button-colored:disabled:hover {
+	cursor: not-allowed;
+	color: #919191;
+	border-color: #919191;
+	background: none;
+}
+
 button.button-colored:hover {
 	color: #fcfcfc;
 	background: #1e90ff;
@@ -124,6 +132,14 @@ button.button-colored:hover {
 button.button-inverted {
 	color: #fcfcfc;
 	border: 1px solid #fcfcfc;
+}
+
+button.button-inverted:disabled,
+button.button-inverted:disabled:hover {
+	cursor: not-allowed;
+	color: rgba(252, 252, 252, 0.5);
+	border-color: rgba(252, 252, 252, 0.5);
+	background: none;
 }
 
 button.button-inverted:hover {

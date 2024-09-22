@@ -103,6 +103,7 @@ require_once 'config.php';
                 type="text"
                 name="login"
                 id="login"
+                pattern="[A-Za-z]+"
                 placeholder="exampleLogin"
                 required />
             </div>
@@ -134,6 +135,7 @@ require_once 'config.php';
                 name="name"
                 id="name"
                 placeholder="Фамилия Имя Отчество"
+                autocomplete="name"
                 required />
             </div>
             <div class="group">
@@ -142,6 +144,7 @@ require_once 'config.php';
                 type="text"
                 name="login_new"
                 id="login_new"
+                pattern="[A-Za-z]+"
                 placeholder="Только латиница"
                 required />
             </div>
