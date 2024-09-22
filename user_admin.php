@@ -114,4 +114,47 @@ require_once 'config.php';
     }
     ?>
   </section>
+
+  <section class="row-item" id="categories">
+    <h2>Управление категориями</h2>
+    <form
+      class="container-colored"
+      id="form-add"
+      action="categories-manage.php"
+      method="post">
+      <div class="group">
+        <label for="title">Название</label>
+        <input
+          type="text"
+          name="title"
+          id="title"
+          placeholder="Мусор на Пушкина"
+          required />
+      </div>
+      <button class="button-inverted" type="submit" name="add">
+        Добавить
+      </button>
+    </form>
+    <?php
+    $stmt = $conn->prepare("SELECT * FROM categories");
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($category = $result->fetch_assoc()) {
+      echo <<<HTML
+      <form 
+        action="categories-manage.php" 
+        method="post" 
+        class="container-outlined category"
+        onsubmit="return confirm('Вы уверены, что хотите удалить эту категорию?');">
+        <input type="hidden" name="title" value="{$category['title']}">
+        <h3>{$category['title']}</h3>
+        <button type="submit" name="delete">
+          Удалить категорию
+        </button>
+      </form>
+      HTML;
+    }
+    ?>
+  </section>
 </section>

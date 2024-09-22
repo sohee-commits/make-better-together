@@ -80,5 +80,7 @@ function fetchSortedApplications(sort) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-	fetchSortedApplications('В порядке добавления');
+	if (document.querySelector(`#sort`)) {
+		fetchSortedApplications('В порядке добавления');
+	}
 });

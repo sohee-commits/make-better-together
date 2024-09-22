@@ -87,6 +87,20 @@ form.form-manage button {
 #main-admin {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
+	gap: 1rem;
+}
+
+#main-admin #new,
+#main-admin #solved,
+#main-admin #categories {
+	height: 80vh;
+	overflow-y: scroll;
+}
+
+#main-admin .category button {
+	font-size: 1rem;
+	color: #1e90ff;
+	border: none;
 }
 
 @media (max-width: 1200px) {
