@@ -5,8 +5,8 @@ require_once 'config.php';
 // вход
 if (isset($_POST['button-login'])) {
   // получение данных из формы входа
-  $login = $_POST['login'];
-  $password = $_POST['password'];
+  $login = htmlspecialchars($_POST['login']);
+  $password = htmlspecialchars($_POST['password']);
 
   // получение данных из бд
   $stmt = $conn->prepare('SELECT * FROM users WHERE login = ?');
@@ -48,11 +48,11 @@ if (isset($_POST['button-login'])) {
 // регистрация
 if (isset($_POST['button-register'])) {
   // получение данных из формы регистрации
-  $name = $_POST['name'];
-  $login_new = $_POST['login_new'];
-  $email = $_POST['email'];
-  $password_new = $_POST['password_new'];
-  $password_repeat = $_POST['password_repeat'];
+  $name = htmlspecialchars($_POST['name']);
+  $login_new = htmlspecialchars($_POST['login_new']);
+  $email = htmlspecialchars($_POST['email']);
+  $password_new = htmlspecialchars($_POST['password_new']);
+  $password_repeat = htmlspecialchars($_POST['password_repeat']);
 
   // проверка совпадения паролей
   if ($password_new !== $password_repeat) {

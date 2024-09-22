@@ -1,12 +1,13 @@
 <?php
 session_start();
 require_once 'config.php';
+
 // юзер отправляет заявку
 if (isset($_POST["send-application"])) {
-  $title = $_POST["title"];
-  $description = $_POST["description"];
-  $category = $_POST["category"];
-  $user_id = $_SESSION["user_id"];
+  $title = htmlspecialchars($_POST["title"]);
+  $description = htmlspecialchars($_POST["description"]);
+  $category = htmlspecialchars($_POST["category"]);
+  $user_id = htmlspecialchars($_SESSION["user_id"]);
   $path = "";
   $allowed_extensions = array('jpg', 'jpeg', 'png', 'bmp');
 
@@ -18,7 +19,7 @@ if (isset($_POST["send-application"])) {
     }
 
     // Проверка размера файла
-    if ($_FILES["path"]["size"] > 10 * 1024 * 1024) { // 10 МБ
+    if ($_FILES["path"]["size"] > 10 * 1024 * 1024) {
       echo '<script>alert("Размер файла не должен превышать 10 МБ.");</script>';
       exit();
     }
@@ -79,8 +80,8 @@ if (isset($_POST["application-delete"])) {
 if (isset($_POST["sort"])) {
   header('Content-Type: application/json');
 
-  $sort = $_POST['sort'];
-  $userId = $_SESSION['user_id'];
+  $sort = htmlspecialchars($_POST['sort']);
+  $userId = htmlspecialchars($_SESSION['user_id']);
 
   // определяем сортировку
   switch ($sort) {
@@ -106,38 +107,23 @@ if (isset($_POST["sort"])) {
   $applications = [];
   while ($row = $result->fetch_assoc()) {
     $applications[] = [
-      'id' => $row['id'],
-      'title' => $row['title'],
-      'description' => $row['description'],
-      'category' => $row['category'],
-      'date' => date('d.m.Y', strtotime($row['date'])),
-      'status' => $row['status']
+      'id' => htmlspecialchars($row['id']),
+      'title' => htmlspecialchars($row['title']),
+      'description' => htmlspecialchars($row['description']),
+      'category' => htmlspecialchars($row['category']),
+      'date' => date('d.m.Y', strtotime(htmlspecialchars($row['date']))),
+      'status' => htmlspecialchars($row['status'])
     ];
   }
 
   echo json_encode($applications);
 }
 
-// отклонение заявки админом
-if (isset($_POST["decline"])) {
-  $reason = $_POST["reason"];
-  $application_id = intval($_POST["application_id"]);
-  $status = 'Отклонена';
-
-  $stmt = $conn->prepare("UPDATE applications SET status = ?, reason = ? WHERE id = ?");
-  $stmt->bind_param('ssi', $status, $reason, $application_id);
-
-  if (!$stmt->execute()) {
-    echo '<script>alert("Ошибка при обновлении заявки: ' . $stmt->error . '");</script>';
-  }
-
-  header('Location: user.php');
-}
 
 // решение заявки админом
 if (isset($_POST["solve"])) {
-  $application_id = intval($_POST["application_id"]);
-  $path = $_POST["path"]; // имя.тип
+  $application_id = intval(htmlspecialchars($_POST["application_id"]));
+  $path = htmlspecialchars($_POST["path"]); // имя.тип
   $status = 'Решена';
   $allowed_extensions = array('jpg', 'jpeg', 'png', 'bmp');
 
