@@ -49,9 +49,12 @@ const playCounterSound = () => {
 				let currentCount = parseInt(data.count);
 				document.querySelector(`#counter-solved`).innerHTML = currentCount;
 
-				if (currentCount > lastCount) {
+				if (currentCount !== lastCount) {
 					let sound = new Audio(`assets/sound.mp3`);
-					sound.play();
+					sound.load();
+					sound.play().catch((err) => {
+						alert(err);
+					});
 
 					const counter = document.querySelector(`#counter-solved`);
 					counter.style.transform = `scale(1.1)`;
@@ -74,7 +77,9 @@ const checkLoginForm = (login, password, submit) => {
 
 	// логин только латиница
 	login.addEventListener(`input`, function () {
-		if (/[^A-Za-z]/.test(this.value)) {
+		if (this.value === ``) {
+			submit.disabled = true;
+		} else if (/[^A-Za-z]/.test(this.value)) {
 			login.placeholder = `Попробуйте сменить раскладку`;
 			this.value = this.value.replace(/[^A-Za-z]/g, ``);
 		} else {
@@ -82,9 +87,9 @@ const checkLoginForm = (login, password, submit) => {
 		}
 	});
 
-	// пароль не меньше 8 символов
+	// пароль не пустой
 	password.addEventListener(`input`, function () {
-		if (this.value.length < 8) {
+		if (this.value === ``) {
 			submit.disabled = true;
 		} else {
 			submit.disabled = false;
@@ -151,6 +156,7 @@ const checkRegisterForm = (
 	});
 };
 
+// вызов всех функций когда страница прогрузилась
 document.addEventListener(`DOMContentLoaded`, () => {
 	highlightNav();
 	openMobileNav();
