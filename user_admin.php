@@ -7,15 +7,25 @@ require_once 'config.php';
   <section class="row-item" id="new">
     <h2>Новые</h2>
     <?php
-    $stmt = $conn->prepare("SELECT * FROM applications");
+    $stmt = $conn->prepare("SELECT * FROM applications WHERE status = 'Ожидает'");
     $stmt->execute();
     $result = $stmt->get_result();
 
-    while ($application = $result->fetch_assoc()) {
-      $date = date('d.m.Y', strtotime($application['date']));
-      $path = str_replace("assets/applications/", "", $application["path"]);
+    if ($result->num_rows === 0) {
+      echo <<<HTML
+      <p 
+        id="filler" 
+        style="height: 20vh; 
+        font-size: 1.15rem; 
+        font-weight: 500;">
+          Новых заявок пока нет 😄
+      </p>
+      HTML;
+    } else {
+      while ($application = $result->fetch_assoc()) {
+        $date = date('d.m.Y', strtotime($application['date']));
+        $path = str_replace("assets/applications/", "", $application["path"]);
 
-      if ($application["status"] == 'Ожидает') {
         echo <<<HTML
         <article class="container-outlined">
           <div class="group">
@@ -64,7 +74,44 @@ require_once 'config.php';
         HTML;
       }
     }
+    ?>
+  </section>
 
+  <section class="row-item" id="solved">
+    <h2>Решённые</h2>
+    <?php
+    $stmt = $conn->prepare("SELECT * FROM applications");
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($application = $result->fetch_assoc()) {
+      if ($application['status'] != 'Ожидает') {
+        $date = date('d.m.Y', strtotime($application['date']));
+        $statusClass =
+          $application['status'] === 'Отклонена'
+          ? 'declined'
+          : ($application['status'] === 'Решена'
+            ? 'solved'
+            : '');
+
+        echo <<<HTML
+        <section class="container-outlined application">
+          <div class="group">
+            <p class="date text-faded">{$date}</p>
+            <p class="category colored">{$application['category']}</p>
+          </div>
+          <header>
+            <h3>{$application['title']}</h3>
+          </header>
+          <p>{$application['description']}</p>
+          <div class="group status">
+            <p class="caption">Статус</p>
+            <p class="{$statusClass}">{$application['status']}</p>
+          </div>
+        </section>
+        HTML;
+      }
+    }
     ?>
   </section>
 </section>
