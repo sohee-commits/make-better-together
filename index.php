@@ -25,72 +25,66 @@ require_once 'config.php';
 
     <main>
       <section class="container" id="summary">
+        <?php
+        $stmt = $conn->prepare("SELECT * FROM applications");
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        // просто сохраняем все заявки в массив
+        $applications = [];
+        while ($application = $result->fetch_assoc()) {
+          $applications[] = $application;
+        }
+
+        // считаем решенные заявки
+        $countSolved = 0;
+        foreach ($applications as $application) {
+          if ($application["status"] == 'Решена') {
+            $countSolved++;
+          }
+        }
+
+        echo <<<HTML
         <!-- счетчик -->
         <article id="container-counter">
-          <p class="colored" id="counter-solved">2</p>
+          <p class="colored" id="counter-solved">{$countSolved}</p>
           <p>Решённых заявок</p>
         </article>
         <!-- последние три решённые заявки -->
-        <!-- 1 -->
-        <article class="container-outlined">
-          <div class="group">
-            <p class="date text-faded">13.09.2024</p>
-            <p class="category colored">Ремонт дорог</p>
-          </div>
-          <header>
-            <h3>Дорога на Пушкина</h3>
-          </header>
-          <div class="content">
-            <div class="content-after">
-              <img src="assets/Rectangle2.png" alt="После" />
-              <p class="text-faded">После</p>
-            </div>
-            <div class="content-before">
-              <img src="assets/Rectangle2.png" alt="После" />
-              <p class="text-faded">До</p>
-            </div>
-          </div>
-        </article>
-        <!-- 2 -->
-        <article class="container-outlined">
-          <div class="group">
-            <p class="date text-faded">13.09.2024</p>
-            <p class="category colored">Ремонт площадки</p>
-          </div>
-          <header>
-            <h3>Площадка на Пушкина</h3>
-          </header>
-          <div class="content">
-            <div class="content-after">
-              <img src="assets/Rectangle2.png" alt="После" />
-              <p class="text-faded">После</p>
-            </div>
-            <div class="content-before">
-              <img src="assets/Rectangle2.png" alt="После" />
-              <p class="text-faded">До</p>
-            </div>
-          </div>
-        </article>
-        <!-- 3 -->
-        <article class="container-outlined">
-          <div class="group">
-            <p class="date text-faded">13.09.2024</p>
-            <p class="category colored">Уборка мусора</p>
-          </div>
-          <header>
-            <h3>Мусор на Пушкина</h3>
-          </header>
-          <div class="content">
-            <div class="content-after">
-              <img src="assets/Rectangle2.png" alt="После" />
-              <p class="text-faded">После</p>
-            </div>
-            <div class="content-before">
-              <img src="assets/Rectangle2.png" alt="После" />
-              <p class="text-faded">До</p>
-            </div>
-          </div>
-        </article>
+        HTML;
+
+        $count = 0;
+        foreach ($applications as $application) {
+          if ($application["status"] == 'Решена' && $count < 3) {
+            $date = date('d.m.Y', strtotime($application["date"]));
+            $path = str_replace("assets/applications/", "", $application["path"]);
+
+            echo <<<HTML
+            <article class="container-outlined">
+              <div class="group">
+                <p class="date text-faded">{$date}</p>
+                <p class="category colored">{$application["category"]}</p>
+              </div>
+              <header>
+                <h3>{$application["title"]}</h3>
+              </header>
+              <div class="content">
+                <div class="content-after">
+                  <img src="assets/applications/solved/{$path}" alt="После" />
+                  <p class="text-faded">После</p>
+                </div>
+                <div class="content-before">
+                  <img src="assets/applications/{$path}" alt="До" />
+                  <p class="text-faded">До</p>
+                </div>
+              </div>
+            </article>
+            HTML;
+
+            $count++;
+          }
+        }
+        ?>
       </section>
 
       <?php
@@ -199,10 +193,9 @@ require_once 'config.php';
         HTML;
         echo $html;
       } else {
-        $html = <<<HTML
+        echo <<<HTML
         <div id="filler" style="height: 40vh;"></div>
         HTML;
-        echo $html;
       }
       ?>
     </main>

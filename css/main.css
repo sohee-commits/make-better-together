@@ -38,7 +38,8 @@ body {
 *.text-faded {
 	font-size: 0.75rem;
 	font-weight: bold;
-	opacity: 0.5;
+	color: #919191;
+	background: #fcfcfc;
 }
 
 /* контейнеры */

@@ -14,6 +14,7 @@ require_once 'config.php';
     <link rel="stylesheet" href="css/user.css" />
     <link rel="stylesheet" href="css/main.css" />
     <script src="scripts/main.js" defer></script>
+    <script src="scripts/user_user.js" defer></script>
   </head>
 
   <body>

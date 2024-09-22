@@ -9,6 +9,16 @@ input#path {
 	border: none;
 }
 
+.application .group:first-of-type {
+	flex-direction: row;
+}
+
+.application .group:nth-of-type(2) {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
 form.container-outlined .group:first-child {
 	flex-direction: row;
 }
@@ -70,6 +80,13 @@ form.form-manage button {
 
 #container-solved .status {
 	flex-direction: column;
+}
+
+/* --- */
+
+#main-admin {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
 }
 
 @media (max-width: 1200px) {
