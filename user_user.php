@@ -21,10 +21,22 @@ require_once 'config.php';
   <div class="group">
     <label for="category">Категория</label>
     <select name="category" id="category">
-      <option value="Ремонт дорог" selected>Ремонт дорог</option>
-      <option value="Уборка мусора">Уборка мусора</option>
-      <option value="Ремонт площадки">Ремонт площадки</option>
-      <option value="Ремонт здания">Ремонт здания</option>
+      <?php
+      $stmt = $conn->prepare("SELECT * FROM categories");
+      $stmt->execute();
+      $result = $stmt->get_result();
+
+      $counter = 0;
+      while ($category = $result->fetch_assoc()) {
+        $selected = $counter == 0 ? "selected" : "";
+
+        echo <<<HTML
+        <option value="{$category['title']}" {$selected}>{$category['title']}</option>
+        HTML;
+
+        $counter++;
+      }
+      ?>
     </select>
   </div>
   <div class="group">
