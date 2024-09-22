@@ -10,3 +10,6 @@ $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 if ($conn->connect_error) {
     die("conn fail >> " . $conn->connect_error);
 }
+
+session_start();
+$_SESSION['csrf_token'] = bin2hex(random_bytes(32));

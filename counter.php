@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once 'config.php';
 
 $stmt = $conn->prepare("SELECT COUNT(*) as count FROM applications WHERE status = 'Решена'");
