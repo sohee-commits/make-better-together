@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once 'config.php';
-
 // юзер отправляет заявку
 if (isset($_POST["send-application"])) {
   $title = $_POST["title"];
@@ -11,24 +10,31 @@ if (isset($_POST["send-application"])) {
   $path = "";
   $allowed_extensions = array('jpg', 'jpeg', 'png', 'bmp');
 
-  if (
-    isset($_FILES["path"]) &&
-    $_FILES["path"]["error"] == UPLOAD_ERR_OK &&
-    in_array(pathinfo($_FILES["path"]["name"], PATHINFO_EXTENSION), $allowed_extensions)
-  ) {
-    $path = date('YmdHis') . "_" . uniqid() . "." . pathinfo($_FILES["path"]["name"], PATHINFO_EXTENSION);
+  if (isset($_FILES["path"])) {
+    // Проверка на ошибки загрузки
+    if ($_FILES["path"]["error"] != UPLOAD_ERR_OK) {
+      echo '<script>alert("Ошибка при загрузке файла: ' . $_FILES["path"]["error"] . '");</script>';
+      exit();
+    }
 
+    // Проверка размера файла
+    if ($_FILES["path"]["size"] > 10 * 1024 * 1024) { // 10 МБ
+      echo '<script>alert("Размер файла не должен превышать 10 МБ.");</script>';
+      exit();
+    }
+
+    // Проверка расширения файла
+    if (!in_array(pathinfo($_FILES["path"]["name"], PATHINFO_EXTENSION), $allowed_extensions)) {
+      echo '<script>alert("Ошибка загрузки файла. Убедитесь, что файл имеет соответствующее расширение: jpg, jpeg, png, bmp.");</script>';
+      exit();
+    }
+
+    // Генерация имени файла и перемещение
+    $path = date('YmdHis') . "_" . uniqid() . "." . pathinfo($_FILES["path"]["name"], PATHINFO_EXTENSION);
     if (!move_uploaded_file($_FILES["path"]["tmp_name"], "assets/applications/" . $path)) {
       echo '<script>alert("Ошибка при сохранении файла.");</script>';
       exit();
     }
-  } else {
-    if ($_FILES["path"]["error"] != UPLOAD_ERR_OK) {
-      echo '<script>alert("Ошибка при загрузке файла: ' . $_FILES["path"]["error"] . '");</script>';
-    } else {
-      echo '<script>alert("Ошибка загрузки файла. Убедитесь, что файл имеет соответствующее расширение: jpg, jpeg, png, bmp.");</script>';
-    }
-    exit();
   }
 
   // Подготовка SQL-запроса

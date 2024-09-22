@@ -38,7 +38,7 @@ setInterval(() => {
 	fetch(`counter.php`)
 		.then((response) => {
 			if (!response.ok) {
-				alert(`ошибка`);
+				alert(`ошибка звука`);
 			}
 			return response.json();
 		})
