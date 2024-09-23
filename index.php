@@ -94,7 +94,7 @@ require_once 'config.php';
           <form
             class="container-outlined"
             id="form-login"
-            action="auth.php"
+            <!-- action="auth.php" -->
             method="post">
             <h3>Уже с нами? Войдите в личный кабинет!</h3>
             <div class="group">
@@ -125,7 +125,7 @@ require_once 'config.php';
           <form
             class="container-colored"
             id="form-register"
-            action="auth.php"
+            <!-- action="auth.php" -->
             method="post">
             <h3>А если нет — присоединяйтесь!</h3>
             <div class="group">

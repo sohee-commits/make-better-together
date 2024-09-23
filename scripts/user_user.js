@@ -80,63 +80,90 @@ function fetchSortedApplications(sort) {
 		.catch((err) => console.error('Ошибка:', err));
 }
 
+// проверка пустых полей
+let checkForm = (title, description, submit) => {
+	title.addEventListener(`input`, function () {
+		submit.disabled = this.value === ``;
+	});
+	description.addEventListener(`input`, function () {
+		submit.disabled = this.value === ``;
+	});
+};
+
 document.addEventListener('DOMContentLoaded', () => {
+	// сортировка
 	if (document.querySelector(`#sort`)) {
 		fetchSortedApplications('В порядке добавления');
 	}
-});
 
-// ограничение максимального размера загрузки файла (file) на submit
-document
-	.querySelector(`#form-application-manage`)
-	.addEventListener(`submit`, (evt) => {
-		let fileNode = document.querySelector(`#path`);
-		let file = fileNode.files[0];
-		let maxSize = 10 * 1024 * 1024; // 10 MB
-		let warning = document.querySelector(`#warning`);
-
-		// если еще нет ноды warning
-		if (!warning) {
-			warning = document.createElement(`p`);
-			warning.setAttribute(`id`, `warning`);
-			warning.style.color = 'red';
-			warning.innerHTML = `Файл не должен быть больше 10 МБ.`;
-			fileNode.insertAdjacentElement(`afterend`, warning);
-		}
-
-		// если файл выбран и не превышает 10мб
-		if (file && file.size > maxSize) {
+	// обработка формы входа
+	const loginForm = document.querySelector('#form-login');
+	if (loginForm) {
+		loginForm.addEventListener('submit', function (evt) {
 			evt.preventDefault();
-			warning.style.display = 'block';
-		} else {
-			warning.style.display = 'none';
-		}
-	});
 
-// проверка пустых полей
-let checkForm = (title, description, submit) => {
-	// название
-	title.addEventListener(`input`, function () {
-		if (this.value === ``) {
-			submit.disabled = true;
-		} else {
-			submit.disabled = false;
-		}
-	});
-	// описание
-	description.addEventListener(`input`, function () {
-		if (this.value === ``) {
-			submit.disabled = true;
-		} else {
-			submit.disabled = false;
-		}
-	});
-	// категория в любом случае не пустая
-	// file проверяется отдельно
-};
+			const formData = new FormData(this);
 
-checkForm(
-	document.querySelector(`#title`),
-	document.querySelector(`#description`),
-	document.querySelector(`#send-application`)
-);
+			fetch('auth.php', {
+				method: 'POST',
+				body: formData,
+			})
+				.then((response) => response.json())
+				.then((data) => {
+					if (data.status === 'success') {
+						window.location.href = 'user.php';
+					} else {
+						alert(data.message);
+					}
+				})
+				.catch((error) => console.error('Ошибка:', error));
+		});
+	}
+
+	// ограничение максимального размера загрузки файла (file) на submit
+	document
+		.querySelector(`#form-application-manage`)
+		.addEventListener(`submit`, (evt) => {
+			let fileNode = document.querySelector(`#path`);
+			let file = fileNode.files[0];
+			let maxSize = 10 * 1024 * 1024; // 10 MB
+			let warning = document.querySelector(`#warning`);
+
+			if (!warning) {
+				warning = document.createElement(`p`);
+				warning.setAttribute(`id`, `warning`);
+				warning.style.color = 'red';
+				warning.innerHTML = `Файл не должен быть больше 10 МБ.`;
+				fileNode.insertAdjacentElement(`afterend`, warning);
+			}
+
+			if (file && file.size > maxSize) {
+				evt.preventDefault();
+				warning.style.display = 'block';
+			} else {
+				warning.style.display = 'none';
+			}
+
+			let allowedExtensions = /(\.jpg|\.jpeg|\.png|\.bmp)$/i;
+			if (file && !allowedExtensions.exec(fileNode.value)) {
+				evt.preventDefault();
+				warning.innerHTML = `Допустимые форматы: .jpg, .jpeg, .png, .bmp.`;
+				warning.style.display = 'block';
+			}
+
+			if (
+				file &&
+				file.size <= maxSize &&
+				allowedExtensions.exec(fileNode.value)
+			) {
+				warning.remove();
+			}
+		});
+
+	// проверка пустых полей
+	checkForm(
+		document.querySelector(`#title`),
+		document.querySelector(`#description`),
+		document.querySelector(`#send-application`)
+	);
+});
