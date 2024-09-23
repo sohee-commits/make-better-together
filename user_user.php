@@ -42,13 +42,15 @@ require_once 'config.php';
   </div>
   <div class="group">
     <label for="path">Фото, демонстрирующее проблему</label>
-    <input type="file" name="path" id="path" accept=".jpg,.jpeg,.png,.bmp" />
+    <input type="file" name="path" id="path" accept=".jpg,.jpeg,.png,.bmp"
+      required />
     <span class="caption">допустимые форматы: *.jpg, *.jpeg, *.png,
       *.bmp</span>
   </div>
   <button
     class="button-inverted"
     name="send-application"
+    id="send-application"
     type="submit">
     Отправить заявку
   </button>

@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 });
 
-// ограничение максимального размера загрузки файла
+// ограничение максимального размера загрузки файла (file) на submit
 document
 	.querySelector(`#form-application-manage`)
 	.addEventListener(`submit`, (evt) => {
@@ -95,6 +95,7 @@ document
 		let maxSize = 10 * 1024 * 1024; // 10 MB
 		let warning = document.querySelector(`#warning`);
 
+		// если еще нет ноды warning
 		if (!warning) {
 			warning = document.createElement(`p`);
 			warning.setAttribute(`id`, `warning`);
@@ -103,6 +104,7 @@ document
 			fileNode.insertAdjacentElement(`afterend`, warning);
 		}
 
+		// если файл выбран и не превышает 10мб
 		if (file && file.size > maxSize) {
 			evt.preventDefault();
 			warning.style.display = 'block';
@@ -110,3 +112,31 @@ document
 			warning.style.display = 'none';
 		}
 	});
+
+// проверка пустых полей
+let checkForm = (title, description, submit) => {
+	// название
+	title.addEventListener(`input`, function () {
+		if (this.value === ``) {
+			submit.disabled = true;
+		} else {
+			submit.disabled = false;
+		}
+	});
+	// описание
+	description.addEventListener(`input`, function () {
+		if (this.value === ``) {
+			submit.disabled = true;
+		} else {
+			submit.disabled = false;
+		}
+	});
+	// категория в любом случае не пустая
+	// file проверяется отдельно
+};
+
+checkForm(
+	document.querySelector(`#title`),
+	document.querySelector(`#description`),
+	document.querySelector(`#send-application`)
+);
