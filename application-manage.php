@@ -141,6 +141,7 @@ if (isset($_POST["solve"])) {
     } else {
       echo '<script>alert("Ошибка загрузки файла. Убедитесь, что файл имеет соответствующее расширение: jpg, jpeg, png, bmp.");</script>';
     }
+    header("Location: user.php");
     exit();
   }
 
@@ -150,6 +151,7 @@ if (isset($_POST["solve"])) {
 
   if (!$stmt->execute()) {
     echo '<script>alert("Ошибка SQL: ' . $stmt->error . '");</script>';
+    header('Location: user.php');
   } else {
     header('Location: user.php');
   }
