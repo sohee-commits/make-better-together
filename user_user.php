@@ -6,7 +6,8 @@ require_once 'config.php';
 <form
   action="application-manage.php"
   class="container-colored"
-  id="form-application-manage" method="post"
+  id="form-application-manage"
+  method="post"
   enctype="multipart/form-data">
   <div class="group">
     <label for="title">Название</label>

@@ -1,3 +1,5 @@
+// сортировка
+
 function fetchSortedApplications(sort) {
 	fetch('application-manage.php', {
 		method: 'POST',
@@ -84,3 +86,28 @@ document.addEventListener('DOMContentLoaded', () => {
 		fetchSortedApplications('В порядке добавления');
 	}
 });
+
+// ограничение максимального размера загрузки файла
+document
+	.querySelector(`#form-application-manage`)
+	.addEventListener(`submit`, (evt) => {
+		let fileNode = document.querySelector(`#path`);
+		let file = fileNode.files[0];
+		let maxSize = 10 * 1024 * 1024; // 10 MB
+		let warning = document.querySelector(`#warning`);
+
+		if (!warning) {
+			warning = document.createElement(`p`);
+			warning.setAttribute(`id`, `warning`);
+			warning.style.color = 'red';
+			warning.innerHTML = `Файл не должен быть больше 10 МБ.`;
+			fileNode.insertAdjacentElement(`afterend`, warning);
+		}
+
+		if (file && file.size > maxSize) {
+			evt.preventDefault();
+			warning.style.display = 'block';
+		} else {
+			warning.style.display = 'none';
+		}
+	});
