@@ -1,5 +1,4 @@
 // сортировка
-
 function fetchSortedApplications(sort) {
 	fetch('application-manage.php', {
 		method: 'POST',

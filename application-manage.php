@@ -85,16 +85,16 @@ if (isset($_POST["sort"])) {
   // определяем сортировку
   switch ($sort) {
     case 'Ожидают':
-      $query = "SELECT * FROM applications WHERE user_id = ? AND status = 'Ожидает'";
+      $query = "SELECT * FROM applications WHERE user_id = ? AND status = 'Ожидает' ORDER BY id DESC";
       break;
     case 'Отклонённые':
-      $query = "SELECT * FROM applications WHERE user_id = ? AND status = 'Отклонена'";
+      $query = "SELECT * FROM applications WHERE user_id = ? AND status = 'Отклонена' ORDER BY id DESC";
       break;
     case 'Решённые':
-      $query = "SELECT * FROM applications WHERE user_id = ? AND status = 'Решена'";
+      $query = "SELECT * FROM applications WHERE user_id = ? AND status = 'Решена' ORDER BY id DESC";
       break;
     default:
-      $query = "SELECT * FROM applications WHERE user_id = ?";
+      $query = "SELECT * FROM applications WHERE user_id = ? ORDER BY id DESC";
       break;
   }
 

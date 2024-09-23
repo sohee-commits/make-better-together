@@ -161,17 +161,23 @@ document.addEventListener(`DOMContentLoaded`, () => {
 	highlightNav();
 	openMobileNav();
 	playCounterSound();
-	checkLoginForm(
-		document.querySelector(`#login`),
-		document.querySelector(`#password`),
-		document.querySelector(`button[name="button-login"]`)
-	);
-	checkRegisterForm(
-		document.querySelector(`#login_new`),
-		document.querySelector(`#password_new`),
-		document.querySelector(`#password_repeat`),
-		document.querySelector(`#email`),
-		document.querySelector(`#name`),
-		document.querySelector(`button[name="button-register"]`)
-	);
+
+	if (document.querySelector(`#form-login`)) {
+		checkLoginForm(
+			document.querySelector(`#login`),
+			document.querySelector(`#password`),
+			document.querySelector(`button[name="button-login"]`)
+		);
+	}
+
+	if (document.querySelector(`#form-register`)) {
+		checkRegisterForm(
+			document.querySelector(`#login_new`),
+			document.querySelector(`#password_new`),
+			document.querySelector(`#password_repeat`),
+			document.querySelector(`#email`),
+			document.querySelector(`#name`),
+			document.querySelector(`button[name="button-register"]`)
+		);
+	}
 });

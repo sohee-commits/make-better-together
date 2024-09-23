@@ -25,7 +25,7 @@ require_once 'config.php';
     <main>
       <section class="container" id="summary">
         <?php
-        $stmt = $conn->prepare("SELECT * FROM applications");
+        $stmt = $conn->prepare("SELECT * FROM applications ORDER BY id DESC");
         $stmt->execute();
         $result = $stmt->get_result();
 

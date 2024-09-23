@@ -24,22 +24,13 @@ if (isset($_POST['button-login'])) {
       header('Location: user.php');
       exit();
     } else {
-      echo '
-      <script>
-        if (confirm("Неверный пароль")) {
-            window.location.href = "index.php";
-        }
-      </script>';
+      echo '<script>alert("Неверный пароль.");</script>';
+      header("Location: index.php");
       exit();
     }
   } else {
-    echo '
-      <script>
-        if (confirm("Пользователь не найден")) {
-            window.location.href = "index.php";
-        }
-      </script>';
-    header('Location: index.php');
+    echo '<script>alert("Пользователь не найден.");</script>';
+    header("Location: index.php");
     exit();
   }
 }
@@ -56,6 +47,7 @@ if (isset($_POST['button-register'])) {
   // проверка совпадения паролей
   if ($password_new !== $password_repeat) {
     echo '<script>alert("Пароли не совпадают.");</script>';
+    header("Location: index.php");
     exit();
   }
 
@@ -67,6 +59,7 @@ if (isset($_POST['button-register'])) {
 
   if ($result->num_rows > 0) {
     echo '<script>alert("Такой логин уже занят.");</script>';
+    header("Location: index.php");
     exit();
   }
 
@@ -89,6 +82,7 @@ if (isset($_POST['button-register'])) {
     exit();
   } else {
     echo '<script>alert("Что-то пошло не так.");</script>';
+    header("Location: index.php");
     exit();
   }
 }
