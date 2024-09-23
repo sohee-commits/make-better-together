@@ -20,16 +20,23 @@ if (isset($_POST['button-login'])) {
     if (password_verify($password, $user['password'])) {
       // сохранение id юзера в сессии
       $_SESSION['user_id'] = $user['id'];
-      echo json_encode(['status' => 'success', 'redirect' => 'user.php']);
       // перекидываем юзера в профиль
       header('Location: user.php');
       exit();
     } else {
-      echo json_encode(['status' => 'error', 'message' => 'Неверный пароль']);
+      echo <<<HTML
+      <script>
+        if (confirm("Неверный пароль")) window.location.href = "index.php";
+      </script>
+      HTML;
       exit();
     }
   } else {
-    echo json_encode(['status' => 'error', 'message' => 'Пользователь не найден']);
+    echo <<<HTML
+    <script>
+      if (confirm("Пользователь не найден")) window.location.href = "index.php";
+    </script>
+    HTML;
     exit();
   }
 }
@@ -45,7 +52,11 @@ if (isset($_POST['button-register'])) {
 
   // проверка совпадения паролей
   if ($password_new !== $password_repeat) {
-    echo json_encode(['status' => 'error', 'message' => 'Пароли не совпадают']);
+    echo <<<HTML
+    <script>
+      if (confirm("Пароли не совпадают")) window.location.href = "index.php";
+    </script>
+    HTML;
     exit();
   }
 
@@ -56,7 +67,11 @@ if (isset($_POST['button-register'])) {
   $result = $stmt->get_result();
 
   if ($result->num_rows > 0) {
-    echo json_encode(['status' => 'error', 'message' => 'Логин уже занят']);
+    echo <<<HTML
+    <script>
+      if (confirm("Логин уже занят")) window.location.href = "index.php";
+    </script>
+    HTML;
     exit();
   }
 
@@ -78,7 +93,11 @@ if (isset($_POST['button-register'])) {
     header('Location: user.php');
     exit();
   } else {
-    echo json_encode(['status' => 'error', 'message' => 'Что-то пошло не так']);
+    echo <<<HTML
+    <script>
+      if (confirm("Что-то пошло не так")) window.location.href = "index.php";
+    </script>
+    HTML;
     exit();
   }
 }

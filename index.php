@@ -54,7 +54,7 @@ require_once 'config.php';
 
         $count = 0;
         foreach ($applications as $application) {
-          if ($application["status"] == 'Решена' && $count < 3) {
+          if ($application["status"] == 'Решена' && $count < 4) {
             $date = date('d.m.Y', strtotime($application["date"]));
             $path = str_replace("assets/applications/", "", $application["path"]);
 
@@ -94,7 +94,7 @@ require_once 'config.php';
           <form
             class="container-outlined"
             id="form-login"
-            <!-- action="auth.php" -->
+            action="auth.php"
             method="post">
             <h3>Уже с нами? Войдите в личный кабинет!</h3>
             <div class="group">
@@ -125,7 +125,7 @@ require_once 'config.php';
           <form
             class="container-colored"
             id="form-register"
-            <!-- action="auth.php" -->
+            action="auth.php"
             method="post">
             <h3>А если нет — присоединяйтесь!</h3>
             <div class="group">

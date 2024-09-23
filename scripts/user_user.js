@@ -96,30 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		fetchSortedApplications('В порядке добавления');
 	}
 
-	// обработка формы входа
-	const loginForm = document.querySelector('#form-login');
-	if (loginForm) {
-		loginForm.addEventListener('submit', function (evt) {
-			evt.preventDefault();
-
-			const formData = new FormData(this);
-
-			fetch('auth.php', {
-				method: 'POST',
-				body: formData,
-			})
-				.then((response) => response.json())
-				.then((data) => {
-					if (data.status === 'success') {
-						window.location.href = 'user.php';
-					} else {
-						alert(data.message);
-					}
-				})
-				.catch((error) => console.error('Ошибка:', error));
-		});
-	}
-
 	// ограничение максимального размера загрузки файла (file) на submit
 	document
 		.querySelector(`#form-application-manage`)
