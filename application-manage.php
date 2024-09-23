@@ -14,6 +14,7 @@ if (isset($_POST["send-application"])) {
     // Проверка на ошибки загрузки
     if ($_FILES["path"]["error"] != UPLOAD_ERR_OK) {
       echo '<script>alert("Ошибка при загрузке файла: ' . $_FILES["path"]["error"] . '");</script>';
+      header('Location: user.php');
       exit();
     }
 
@@ -133,11 +134,13 @@ if (isset($_POST["solve"])) {
     // Сохранение файла в папку solved с именем из path
     if (!move_uploaded_file($_FILES["proof"]["tmp_name"], "assets/applications/solved/" . $path)) {
       echo '<script>alert("Ошибка при сохранении файла.");</script>';
+      header('Location: user.php');
       exit();
     }
   } else {
     if ($_FILES["proof"]["error"] != UPLOAD_ERR_OK) {
       echo '<script>alert("Ошибка при загрузке файла: ' . $_FILES["proof"]["error"] . '");</script>';
+      header('Location: user.php');
     } else {
       echo '<script>alert("Ошибка загрузки файла. Убедитесь, что файл имеет соответствующее расширение: jpg, jpeg, png, bmp.");</script>';
     }
